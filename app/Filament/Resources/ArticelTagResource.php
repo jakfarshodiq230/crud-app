@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ArticelCategoryResource\Pages;
-use App\Filament\Resources\ArticelCategoryResource\RelationManagers;
-use App\Models\ArticelCategory;
+use App\Filament\Resources\ArticelTagResource\Pages;
+use App\Filament\Resources\ArticelTagResource\RelationManagers;
+use App\Models\ArticelTag;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,13 +13,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Models\Articel;
-use App\Models\Categories;
+use App\Models\Tag;
 
-class ArticelCategoryResource extends Resource
+class ArticelTagResource extends Resource
 {
-    protected static ?string $model = ArticelCategory::class;
+    protected static ?string $model = ArticelTag::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     public static function form(Form $form): Form
     {
@@ -32,9 +32,9 @@ class ArticelCategoryResource extends Resource
                     ->required(),
 
                 // Category field
-                Forms\Components\Select::make('category_id')
-                    ->label('Category')
-                    ->options(Categories::all()->pluck('name', 'id'))
+                Forms\Components\Select::make('tag_id')
+                    ->label('Tags')
+                    ->options(Tag::all()->pluck('name', 'id'))
                     ->required(),
             ]);
     }
@@ -48,15 +48,21 @@ class ArticelCategoryResource extends Resource
                     ->getStateUsing(function ($record, $livewire): string {
                         return (string) $livewire->getTableRecords()->search(fn($item) => $item->id === $record->id) + 1;
                     }),
+
                 // Article Title Column
                 Tables\Columns\TextColumn::make('articel.title')
                     ->label('Article Title')
                     ->sortable()
                     ->searchable(),
 
+                Tables\Columns\TextColumn::make('articel.content')
+                    ->label('Article Title')
+                    ->sortable()
+                    ->searchable(),
+
                 // Category Name Column
-                Tables\Columns\TextColumn::make('category.name')
-                    ->label('Category Name')
+                Tables\Columns\TextColumn::make('tag.name')
+                    ->label('Tags Name')
                     ->sortable()
                     ->searchable(),
             ])
@@ -84,9 +90,9 @@ class ArticelCategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListArticelCategories::route('/'),
-            'create' => Pages\CreateArticelCategory::route('/create'),
-            'edit' => Pages\EditArticelCategory::route('/{record}/edit'),
+            'index' => Pages\ListArticelTags::route('/'),
+            'create' => Pages\CreateArticelTag::route('/create'),
+            'edit' => Pages\EditArticelTag::route('/{record}/edit'),
         ];
     }
 }

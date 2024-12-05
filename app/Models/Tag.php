@@ -11,4 +11,9 @@ class Tag extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function articel()
+    {
+        return $this->belongsTo(Articel::class);
+    }
 }

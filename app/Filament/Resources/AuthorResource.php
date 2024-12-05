@@ -48,6 +48,11 @@ class AuthorResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->label('No')
+                    ->getStateUsing(function ($record, $livewire): string {
+                        return (string) $livewire->getTableRecords()->search(fn($item) => $item->id === $record->id) + 1;
+                    }),
                 Tables\Columns\TextColumn::make('name')->searchable(),
                 Tables\Columns\TextColumn::make('email'),
             ])

@@ -21,6 +21,11 @@ class Articel extends Model
 
     public function categories()
     {
-        return $this->hasMany(Articel_Category::class, 'article_id');
+        return $this->hasMany(ArticelCategory::class, 'article_id');
+    }
+
+    public function tag()
+    {
+        return $this->hasMany(Tag::class, 'article_id');
     }
 }
