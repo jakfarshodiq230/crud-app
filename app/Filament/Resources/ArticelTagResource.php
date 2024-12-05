@@ -20,6 +20,7 @@ class ArticelTagResource extends Resource
     protected static ?string $model = ArticelTag::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationGroup = 'Articel';
 
     public static function form(Form $form): Form
     {

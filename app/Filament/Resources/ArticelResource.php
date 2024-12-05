@@ -21,6 +21,7 @@ class ArticelResource extends Resource
     protected static ?string $model = Articel::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Articel';
 
     public static function form(Form $form): Form
     {
